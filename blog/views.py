@@ -11,8 +11,8 @@ def post_list(request):
 
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
-    points = get_list_or_404(Point, post=pk)
-    return render(request, 'blog/post_detail.html', {'post': post, 'points': points})
+    points = Point.objects.filter(post=pk)
+    return render(request, 'blog/post_detail.html', {'post': post, 'points': points if points else []})
 
 
 def post_new(request):
