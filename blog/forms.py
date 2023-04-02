@@ -1,5 +1,5 @@
 from django import forms
-from .models import Post
+from .models import Post, Point
 
 
 class PostForm(forms.ModelForm):
@@ -10,5 +10,5 @@ class PostForm(forms.ModelForm):
 
 class PointForm(forms.ModelForm):
     class Meta:
-        model = Post
-        fields = ('title', 'text',)
+        model = Point
+        fields = ('post', 'title', 'sequence_number', 'text',)
