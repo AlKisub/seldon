@@ -15,8 +15,8 @@
       </div>
     {% endif %}
     <h1>{{ post.title }}</h1>
-    <p>{{ post.text|linebreaksbr }}</p>
     {{ post.map_href|safe}}
+    <p>{{ post.text|linebreaksbr }}</p>
   </div>
   <hr>
   <a href="{% url 'point_new' post=post.pk %}">
@@ -34,7 +34,8 @@
         </a>
       {% endif %}
       <h1>{{point.title}}</h1>
-      <p>{{point.text}}</p>
+      {{ point.map_href|safe}}
+      <p>{{point.text|linebreaksbr}}</p>
 
     </div>
   {% endfor %}

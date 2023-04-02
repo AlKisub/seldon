@@ -11,4 +11,4 @@ class PostForm(forms.ModelForm):
 class PointForm(forms.ModelForm):
     class Meta:
         model = Point
-        fields = ('post', 'title', 'sequence_number', 'text',)
+        fields = ('post', 'title', 'sequence_number', 'text', 'map_href',)
