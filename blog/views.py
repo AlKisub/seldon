@@ -1,6 +1,10 @@
+from pathlib import Path
+
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, get_list_or_404, redirect
 from django.utils import timezone
+
+from seldon.settings import MEDIA_ROOT
 from .models import Post, Point, Photo
 from .forms import PostForm, PointForm
 
@@ -74,10 +78,15 @@ def point_edit(request, post, point):
 
         images = request.FILES.getlist('images')
         for image in images:
+            filename = f'{point}/{image}'
             photo = Photo.objects.create(
-                image=image,
+                image=filename,
                 point_id=point,
             )
+            filename = Path(MEDIA_ROOT, filename)
+            filename.parent.mkdir(exist_ok=True, parents=True)
+            with open(filename, 'wb') as f:
+                f.write(image.file.read())
             photo.save()
 
         if form.is_valid():
@@ -88,4 +97,5 @@ def point_edit(request, post, point):
             return redirect('post_detail', post=post)
     else:
         form = PointForm(instance=edit_point)
-    return render(request, 'blog/point_edit.html', {'form': form})
+        photos = Photo.objects.filter(point=point)
+    return render(request, 'blog/point_edit.html', {'form': form, 'photos': photos})
