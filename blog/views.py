@@ -1,6 +1,7 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, get_list_or_404, redirect
 from django.utils import timezone
-from .models import Post, Point
+from .models import Post, Point, Photo
 from .forms import PostForm, PointForm
 
 
@@ -12,7 +13,11 @@ def post_list(request):
 def post_detail(request, post):
     post = get_object_or_404(Post, pk=post)
     points = Point.objects.filter(post=post).order_by('sequence_number')
-    return render(request, 'blog/post_detail.html', {'post': post, 'points': points if points else []})
+    points = points if points else []
+    for point in points:
+        point.photo = Photo.objects.filter(point=point)
+        print(point.photo)
+    return render(request, 'blog/post_detail.html', {'post': post, 'points': points})
 
 
 def post_new(request):
@@ -66,6 +71,16 @@ def point_edit(request, post, point):
     edit_point = get_object_or_404(Point, pk=point, post=post)
     if request.method == "POST":
         form = PointForm(request.POST, instance=edit_point)
+
+        images = request.FILES.getlist('images')
+        point_id = 6
+        for image in images:
+            photo = Photo.objects.create(
+                image=image,
+                point_id=point_id,
+            )
+            photo.save()
+
         if form.is_valid():
             edit_point = form.save(commit=False)
             edit_point.author = request.user

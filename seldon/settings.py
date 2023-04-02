@@ -25,8 +25,7 @@ SECRET_KEY = 'django-insecure-8cmnp_ouiz%4p^af(fz%$4h_@w12@o2l$b49k^(a-1dk*$x56@
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-# ALLOWED_HOSTS = []
-ALLOWED_HOSTS = ['192.168.10.48', '.ru']
+ALLOWED_HOSTS = ['192.168.10.48', '.ru', '127.0.0.1']
 
 
 # Application definition
@@ -127,3 +126,9 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGIN_REDIRECT_URL = '/'
+
+MEDIA_ROOT = Path(BASE_DIR, 'media')
+
+MEDIA_URL = '/media/'
