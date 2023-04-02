@@ -21,7 +21,7 @@ def post_new(request):
         if form.is_valid():
             post = form.save(commit=False)
             post.author = request.user
-            post.published_date = timezone.now()
+            post.edit_date = timezone.now()
             post.save()
             return redirect('post_detail', post=post.pk)
     else:
@@ -36,7 +36,7 @@ def post_edit(request, post):
         if form.is_valid():
             edit_post = form.save(commit=False)
             edit_post.author = request.user
-            edit_post.published_date = timezone.now()
+            edit_post.edit_date = timezone.now()
             edit_post.save()
             return redirect('post_detail', post=post)
     else:
@@ -50,7 +50,7 @@ def point_new(request, post):
         if form.is_valid():
             point = form.save(commit=False)
             point.author = request.user
-            point.published_date = timezone.now()
+            point.edit_date = timezone.now()
             point.save()
             return redirect('post_detail', post=post)
     else:
@@ -69,7 +69,7 @@ def point_edit(request, post, point):
         if form.is_valid():
             edit_point = form.save(commit=False)
             edit_point.author = request.user
-            edit_point.published_date = timezone.now()
+            edit_point.edit_date = timezone.now()
             edit_point.save()
             return redirect('post_detail', post=post)
     else:
