@@ -73,11 +73,10 @@ def point_edit(request, post, point):
         form = PointForm(request.POST, instance=edit_point)
 
         images = request.FILES.getlist('images')
-        point_id = 6
         for image in images:
             photo = Photo.objects.create(
                 image=image,
-                point_id=point_id,
+                point_id=point,
             )
             photo.save()
 
