@@ -4,8 +4,9 @@
   <h1>Создание точки</h1>
   <form method="POST" class="post-form" enctype="multipart/form-data">{% csrf_token %}
     {{ form.as_p }}
-    <div class="form-group m-3">
-      <input name="images" type="file" multiple class="form-control-file">
+    <div class="mb-3">
+      <label for="formFileMultiple" class="form-label">Multiple files input example</label>
+      <input class="form-control" type="file" id="formFileMultiple" multiple>
     </div>
     <button type="submit" class="btn btn-primary">Сохранить</button>
   </form>
