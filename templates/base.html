@@ -55,7 +55,7 @@
                             {{ user.username }}
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarUser">
-                            <a class="dropdown-item {% if 'accounts/profile/' in request.path %}active{% endif %}" href="{% url 'account_page' %}">Пользователь</a>
+                            <a class="dropdown-item {% if 'accounts/profile/' in request.path %}active{% endif %}" href="{% url 'account_page' %}">Профиль</a>
                             <a class="dropdown-item {% if 'post/new' in request.path %}active{% endif %}" href="{% url 'exit' %}">Выход</a>
                         </div>
                     </ul>
