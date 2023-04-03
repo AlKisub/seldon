@@ -6,13 +6,13 @@
     {{ form.as_p }}
     <div class="mb-3">
       <label for="formFileMultiple" class="form-label">Multiple files input example</label>
-      <input class="form-control" type="file" id="formFileMultiple" multiple>
+      <input class="form-control" name='images' type="file" id="formFileMultiple" multiple>
     </div>
     <button type="submit" class="btn btn-primary">Сохранить</button>
   </form>
   <div>
     {% for photo in photos %}
-      <a href="/media/{{ photo.image }}" class="btn btn-outline-dark btn-sm m-1"><img class="image-thumbail" src="/media/{{ photo.image }}" alt="Изображение не найдено" width="300" height="300"></a>
+      <a href="{{ photo.image.url }}" class="btn btn-outline-dark btn-sm m-1"><img class="image-thumbail" src="{{ photo.image.url }}" alt="Изображение не найдено" width="300" height="300"></a>
     {% endfor %}
   </div>
 {% endblock %}

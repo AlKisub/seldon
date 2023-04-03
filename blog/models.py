@@ -52,7 +52,7 @@ class Photo(models.Model):
         verbose_name_plural = 'Фотографии'
 
     point = models.ForeignKey(Point, on_delete=models.CASCADE, verbose_name='Связанная точка', null=False)
-    image = models.TextField(null=False, blank=False, verbose_name='Путь к фото')
+    image = models.ImageField(null=False, blank=False, verbose_name='Путь к фото')
 
     def __str__(self):
         return str(self.image)

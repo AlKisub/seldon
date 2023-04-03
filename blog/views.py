@@ -20,7 +20,6 @@ def post_detail(request, post):
     points = points if points else []
     for point in points:
         point.photo = Photo.objects.filter(point=point)
-        print(point.photo)
     return render(request, 'blog/post_detail.html', {'post': post, 'points': points})
 
 
@@ -61,6 +60,17 @@ def point_new(request, post):
             point.author = request.user
             point.edit_date = timezone.now()
             point.save()
+            for image in request.FILES.getlist('images'):
+                photo = Photo.objects.create(
+                    image=image,
+                    point_id=point.pk,
+                )
+                initial_path = photo.image.path
+                photo.image.name = f'{point}/{photo.image.name}'
+                new_path = Path(MEDIA_ROOT, photo.image.name)
+                new_path.parent.mkdir(exist_ok=True, parents=True)
+                Path(initial_path).rename(new_path)
+                photo.save()
             return redirect('post_detail', post=post)
     else:
         sequence_number = 1
@@ -75,25 +85,22 @@ def point_edit(request, post, point):
     edit_point = get_object_or_404(Point, pk=point, post=post)
     if request.method == "POST":
         form = PointForm(request.POST, instance=edit_point)
-
-        images = request.FILES.getlist('images')
-        for image in images:
-            filename = f'{point}/{image}'
-            photo = Photo.objects.create(
-                image=filename,
-                point_id=point,
-            )
-            filename = Path(MEDIA_ROOT, filename)
-            filename.parent.mkdir(exist_ok=True, parents=True)
-            with open(filename, 'wb') as f:
-                f.write(image.file.read())
-            photo.save()
-
         if form.is_valid():
             edit_point = form.save(commit=False)
             edit_point.author = request.user
             edit_point.edit_date = timezone.now()
             edit_point.save()
+            for image in request.FILES.getlist('images'):
+                photo = Photo.objects.create(
+                    image=image,
+                    point_id=point,
+                )
+                initial_path = photo.image.path
+                photo.image.name = f'{point}/{photo.image.name}'
+                new_path = Path(MEDIA_ROOT, photo.image.name)
+                new_path.parent.mkdir(exist_ok=True, parents=True)
+                Path(initial_path).rename(new_path)
+                photo.save()
             return redirect('post_detail', post=post)
     else:
         form = PointForm(instance=edit_point)
