@@ -17,12 +17,15 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
+from django.views.generic.base import RedirectView
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
     path('accounts/profile/', include('profile.urls')),
     path('', include('blog.urls')),
+    path('', RedirectView.as_view(url='posts')),
 ]
 
 if settings.DEBUG:

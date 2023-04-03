@@ -3,6 +3,7 @@ from pathlib import Path
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, get_list_or_404, redirect
 from django.utils import timezone
+from django.http import HttpResponse
 
 from seldon.settings import MEDIA_ROOT
 from .models import Post, Point, Photo
@@ -23,6 +24,7 @@ def post_detail(request, post):
     return render(request, 'blog/post_detail.html', {'post': post, 'points': points})
 
 
+@login_required(login_url='login')
 def post_new(request):
     if request.method == "POST":
         form = PostForm(request.POST)
@@ -37,6 +39,7 @@ def post_new(request):
     return render(request, 'blog/post_new.html', {'form': form})
 
 
+@login_required(login_url='login')
 def post_edit(request, post):
     edit_post = get_object_or_404(Post, pk=post)
     if request.method == "POST":
@@ -52,6 +55,7 @@ def post_edit(request, post):
     return render(request, 'blog/post_edit.html', {'form': form})
 
 
+@login_required(login_url='login')
 def point_new(request, post):
     if request.method == "POST":
         form = PointForm(request.POST)
@@ -63,10 +67,10 @@ def point_new(request, post):
             for image in request.FILES.getlist('images'):
                 photo = Photo.objects.create(
                     image=image,
-                    point_id=point.pk,
+                    point_id=point.id,
                 )
                 initial_path = photo.image.path
-                photo.image.name = f'{point}/{photo.image.name}'
+                photo.image.name = f'{point.id}/{photo.image.name}'
                 new_path = Path(MEDIA_ROOT, photo.image.name)
                 new_path.parent.mkdir(exist_ok=True, parents=True)
                 Path(initial_path).rename(new_path)
@@ -81,6 +85,7 @@ def point_new(request, post):
     return render(request, 'blog/point_new.html', {'form': form})
 
 
+@login_required(login_url='login')
 def point_edit(request, post, point):
     edit_point = get_object_or_404(Point, pk=point, post=post)
     if request.method == "POST":
@@ -106,3 +111,14 @@ def point_edit(request, post, point):
         form = PointForm(instance=edit_point)
         photos = Photo.objects.filter(point=point)
     return render(request, 'blog/point_edit.html', {'form': form, 'photos': photos})
+
+
+@login_required(login_url='login')
+def delete_media(request):
+    path = request.GET.get('path')
+    photo = Photo.objects.filter(image=path)
+
+    Path(MEDIA_ROOT, path).unlink()
+
+    photo.delete()
+    return HttpResponse(status=200)
