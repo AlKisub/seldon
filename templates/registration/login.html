@@ -2,27 +2,11 @@
 
 {% block content %}
 
-{% if form.errors %}
-<p>Your username and password didn't match. Please try again.</p>
-{% endif %}
-
-{% if next %}
-{% if user.is_authenticated %}
-<p>Your account doesn't have access to this page. To proceed,
-  please login with an account that has access.</p>
-{% else %}
-<p>Please login to see this page.</p>
-{% endif %}
-{% endif %}
-
 <form method="post" action="{% url 'login' %}" class="login">
   {% csrf_token %}
   <input required type="text" class="form-control" placeholder="Логин"  name="username" id="username" style="margin-top: 10px; width: 300px">
   <input required type="password" class="form-control" placeholder="Пароль"  name="password" id="password" style="margin-top: 10px; width: 300px">
   <input type="submit" class="btn btn-outline-primary" value="Войти" style="margin-top: 10px">
 </form>
-
-{# Assumes you setup the password_reset view in your URLconf #}
-<!--<p><a href="{% url 'password_reset' %}">Lost password?</a></p>-->
 
 {% endblock %}

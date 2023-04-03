@@ -55,7 +55,8 @@
                             {{ user.username }}
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarUser">
-                            <a class="dropdown-item {% if 'accounts/profile/' in request.path %}active{% endif %}" href="{% url 'account_page' %}">Профиль</a>
+                            <a class="dropdown-item {% if '/accounts/profile/' == request.path %}active{% endif %}" href="{% url 'account_page' %}">Профиль</a>
+                            <a class="dropdown-item {% if 'change_password' in request.path %}active{% endif %}" href="{% url 'change_password' %}">Смена пароля</a>
                             <a class="dropdown-item {% if 'post/new' in request.path %}active{% endif %}" href="{% url 'exit' %}">Выход</a>
                         </div>
                     </ul>
@@ -95,5 +96,7 @@
                 {% endblock %}
             </div>
         </div>
+        {% block extra_script %}
+        {% endblock %}
     </body>
 </html>

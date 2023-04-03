@@ -5,4 +5,5 @@ from django.contrib.auth import views as authViews
 urlpatterns = [
     path('', views.account_page, name='account_page'),
     path('exit/', authViews.LogoutView.as_view(next_page='/'), name='exit'),
+    path('change_password/', views.change_password, name='change_password'),
 ]
