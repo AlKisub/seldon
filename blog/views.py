@@ -36,7 +36,7 @@ def post_create(request):
             return redirect('post_detail', post=post.pk)
     else:
         form = PostForm()
-    return render(request, 'blog/post_new.html', {'form': form})
+    return render(request, 'blog/post_create.html', {'form': form})
 
 
 @login_required(login_url='login')
@@ -82,7 +82,7 @@ def point_create(request, post):
         if points:
             sequence_number = points[0].sequence_number + 1
         form = PointForm(initial={'post': post, 'sequence_number': sequence_number})
-    return render(request, 'blog/point_new.html', {'form': form})
+    return render(request, 'blog/point_create.html', {'form': form})
 
 
 @login_required(login_url='login')
