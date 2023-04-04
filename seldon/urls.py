@@ -30,3 +30,9 @@ urlpatterns = [
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+admin.site.site_header = "Админка Селдена"
+
+admin.site.site_title = "Админка"
+
+admin.site.index_title = "Прямой интерфейс к БД"

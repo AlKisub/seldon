@@ -1,14 +1,38 @@
+from pathlib import Path
+
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import check_password
 from django.contrib.auth.models import User
-from django.shortcuts import render
+from django.http import HttpResponse
+from django.shortcuts import render, redirect, get_object_or_404
+
+from profile.forms import ProfileForm
+from profile.models import Profile
+from seldon.settings import MEDIA_ROOT
 
 
 @login_required(login_url='login')
 def account_page(request):
-    print(request)
     login = request.user
-    return render(request, 'profile/profile.html', {'login': login})
+    profile = Profile.objects.filter(author=login)[0]
+    return render(request, 'profile/profile.html', {'login': login, 'profile': profile})
+
+
+@login_required(login_url='login')
+def account_edit(request):
+    profile = get_object_or_404(Profile, author=request.user)
+    if request.method == "POST":
+        form = ProfileForm(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            edit_profile = form.save(commit=False)
+            # form = form.save(commit=False)
+            # form.author = request.user
+            # form.edit_date = timezone.now()
+            edit_profile.save()
+            return redirect('account_page')
+    else:
+        form = ProfileForm(instance=profile)
+    return render(request, 'profile/edit.html', {'form': form})
 
 
 @login_required(login_url='login')
@@ -24,3 +48,8 @@ def change_password(request, error='', success=''):
             u.save()
             success = 'Пароль успешно изменен'
     return render(request, 'profile/change_pass.html', {'error': error, 'success': success})
+
+
+def account_profiles(request):
+    profiles = Profile.objects.all()
+    return render(request, 'profile/profiles.html', {'profiles': profiles})

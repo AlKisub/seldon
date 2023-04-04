@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block style %}
+<!--<link rel="stylesheet" href="{% static 'blog/blog.css' %}">-->
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock %}
+
+{% block content %}
+        <!-- Add icon library -->
+    {% for profile in profiles %}
+        <div>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+            <div class="card_profile">
+                <img src="{% if profile.photo %}{{profile.photo.url}}{% else %}/media/profile.png{% endif %}" alt="{{profile.name}}" style="width:100%">
+                <h1>{{profile.name}}</h1>
+                <p class="title_profile">{{profile.rule}}</p>
+                <p>{{profile.about_me}}</p>
+                <a class="a_profile" href="#"><i class="fa fa-vk"></i></a>
+                <a class="a_profile" href="#"><i class="fa fa-telegram"></i></a>
+                <a class="a_profile" href="#"><i class="fa fa-whatsapp"></i></a>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}
