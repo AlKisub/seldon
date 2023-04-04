@@ -3,12 +3,10 @@
 {% load static %}
 
 {% block style %}
-<!--<link rel="stylesheet" href="{% static 'blog/blog.css' %}">-->
 <link rel="stylesheet" href="{% static 'css/profile.css' %}">
 {% endblock %}
 
 {% block content %}
-        <!-- Add icon library -->
     {% for profile in profiles %}
         <div>
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">

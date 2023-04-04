@@ -24,7 +24,8 @@
 <script>
   function del(path) {
     var x = new XMLHttpRequest();
-    x.open("GET", "/point/delete_media?path=" + path, true);
+    // x.open("GET", "/posts/delete_media?path=" + path, true);
+    x.open("GET", "{% url 'delete_media' %}?path=" + path, true);
     x.send(null);
     document.getElementById(path.toString()).remove()
   }

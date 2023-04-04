@@ -1,7 +1,7 @@
 from pathlib import Path
 
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, get_object_or_404, get_list_or_404, redirect
+from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from django.http import HttpResponse
 
@@ -25,7 +25,7 @@ def post_detail(request, post):
 
 
 @login_required(login_url='login')
-def post_new(request):
+def post_create(request):
     if request.method == "POST":
         form = PostForm(request.POST)
         if form.is_valid():
@@ -56,7 +56,7 @@ def post_edit(request, post):
 
 
 @login_required(login_url='login')
-def point_new(request, post):
+def point_create(request, post):
     if request.method == "POST":
         form = PointForm(request.POST)
         if form.is_valid():

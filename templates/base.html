@@ -34,32 +34,32 @@
                                 {% else %}Статьи{% endif %}
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarPosts">
-                                <a class="dropdown-item {% if 'posts' in request.path %}active{% endif %}" href="{% url 'post_list' %}">Статьи</a>
+                                <a class="dropdown-item {% if '/posts/' == request.path %}active{% endif %}" href="{% url 'post_list' %}">Статьи</a>
                                 {% if user.is_authenticated %}
                                     <a class="dropdown-item {% if 'post/new' in request.path %}active{% endif %}" href="{% url 'post_new' %}">Создание статьи</a>
                                 {% endif %}
                             </div>
                         </li>
 
-                        <li class="nav-item dropdown {% if 'news' in request.path %}active{% endif %}">
+                        <li class="nav-item dropdown {% if '/news/' == request.path %}active{% endif %}">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarNews" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 {% if 'news/news_create' in request.path %}Создание новости
                                 {% else %}Новости{% endif %}
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarPosts">
-                                <a class="dropdown-item {% if 'posts' in request.path %}active{% endif %}" href="{% url 'news_list' %}">Новости</a>
+                                <a class="dropdown-item {% if '/news/' == request.path %}active{% endif %}" href="{% url 'news_list' %}">Новости</a>
                                 {% if user.is_authenticated %}
-                                <a class="dropdown-item {% if 'post/new' in request.path %}active{% endif %}" href="{% url 'news_create' %}">Создание новости</a>
+                                <a class="dropdown-item {% if '/news/create/' == request.path %}active{% endif %}" href="{% url 'news_create' %}">Создание новости</a>
                                 {% endif %}
                             </div>
                         </li>
                         {% if perms.app.view %}
                         <!--                            <li class="nav-item { if 'x5_switcher' in request.path %}active{ endif %}"><a class="nav-link" href="{ url 'x5_get_state' %}">X5Switcher</a></li>-->
-                        <li class="nav-item active {% if '/news/' == request.path %}active{% endif %}"><a class="nav-link" href="{% url 'account_profiles' %}">Н3</a></li>
+                        <li class="nav-item active {% if '/news/' == request.path %}active{% endif %}"><a class="nav-link" href="{% url 'profiles' %}">Н3</a></li>
                         {% endif %}
 
 
-                        <li class="nav-item active {% if '/accounts/profiles/' == request.path %}active{% endif %}"><a class="nav-link" href="{% url 'account_profiles' %}">О нас</a></li>
+                        <li class="nav-item active {% if '/profiles/' == request.path %}active{% endif %}"><a class="nav-link" href="{% url 'profiles' %}">О нас</a></li>
 
 
                     </ul>
@@ -70,7 +70,7 @@
                             {{ user.username }}
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarUser">
-                            <a class="dropdown-item {% if '/accounts/profile/' == request.path %}active{% endif %}" href="{% url 'account_page' %}">Профиль</a>
+                            <a class="dropdown-item {% if '/accounts/profile/' == request.path %}active{% endif %}" href="{% url 'profile' %}">Профиль</a>
                             <a class="dropdown-item {% if 'change_password' in request.path %}active{% endif %}" href="{% url 'change_password' %}">Смена пароля</a>
                             <a class="dropdown-item {% if 'post/new' in request.path %}active{% endif %}" href="{% url 'exit' %}">Выход</a>
                         </div>
