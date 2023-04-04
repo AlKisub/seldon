@@ -9,7 +9,7 @@ class News(models.Model):
         verbose_name_plural = 'Новости'
 
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name='Автор')
-    subject = models.TextField(verbose_name='Тема')
+    subject = models.CharField(max_length=200, verbose_name='Тема')
     text = models.TextField(verbose_name='Текст')
     date = models.DateTimeField(verbose_name='Дата')
 
