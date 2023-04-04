@@ -41,9 +41,11 @@
                             </div>
                         </li>
 
-                        {% if perms.app.view %}
 <!--                            <li class="nav-item { if 'x5_switcher' in request.path %}active{ endif %}"><a class="nav-link" href="{ url 'x5_get_state' %}">X5Switcher</a></li>-->
-                            <li class="nav-item active {% if '/accounts/profiles/' == request.path %}active{% endif %}"><a class="nav-link" href="{% url 'account_profiles' %}">О нас</a></li>
+                        <li class="nav-item active {% if '/accounts/profiles/' == request.path %}active{% endif %}"><a class="nav-link" href="{% url 'account_profiles' %}">О нас</a></li>
+                        {% if perms.app.view %}
+                        <!--                            <li class="nav-item { if 'x5_switcher' in request.path %}active{ endif %}"><a class="nav-link" href="{ url 'x5_get_state' %}">X5Switcher</a></li>-->
+                        <li class="nav-item active {% if '/accounts/profiles/' == request.path %}active{% endif %}"><a class="nav-link" href="{% url 'account_profiles' %}">Страница 3</a></li>
                         {% endif %}
 
 
