@@ -14,8 +14,13 @@ from seldon.settings import MEDIA_ROOT
 @login_required(login_url='login')
 def account_page(request):
     login = request.user
-    profile = Profile.objects.filter(author=login)[0]
-    return render(request, 'profile/profile.html', {'login': login, 'profile': profile})
+    if Profile.objects.filter(author=login):
+        profile = Profile.objects.filter(author=login)[0]
+        return render(request, 'profile/profile.html', {'login': login, 'profile': profile})
+    else:
+        Profile.objects.create(author=login)
+        return redirect('account_edit')
+
 
 
 @login_required(login_url='login')
