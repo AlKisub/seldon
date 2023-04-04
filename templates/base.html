@@ -41,9 +41,6 @@
                             </div>
                         </li>
 
-<!--                            <li class="nav-item { if 'x5_switcher' in request.path %}active{ endif %}"><a class="nav-link" href="{ url 'x5_get_state' %}">X5Switcher</a></li>-->
-                        <li class="nav-item active {% if '/accounts/profiles/' == request.path %}active{% endif %}"><a class="nav-link" href="{% url 'account_profiles' %}">О нас</a></li>
-                        <!--                            <li class="nav-item { if 'x5_switcher' in request.path %}active{ endif %}"><a class="nav-link" href="{ url 'x5_get_state' %}">X5Switcher</a></li>-->
                         <li class="nav-item dropdown {% if 'news' in request.path %}active{% endif %}">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarNews" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 {% if 'news/news_create' in request.path %}Создание новости
@@ -60,6 +57,9 @@
                         <!--                            <li class="nav-item { if 'x5_switcher' in request.path %}active{ endif %}"><a class="nav-link" href="{ url 'x5_get_state' %}">X5Switcher</a></li>-->
                         <li class="nav-item active {% if '/news/' == request.path %}active{% endif %}"><a class="nav-link" href="{% url 'account_profiles' %}">Н3</a></li>
                         {% endif %}
+
+
+                        <li class="nav-item active {% if '/accounts/profiles/' == request.path %}active{% endif %}"><a class="nav-link" href="{% url 'account_profiles' %}">О нас</a></li>
 
 
                     </ul>
