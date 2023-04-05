@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'blog',
     'profile',
     'news',
+    'events',
 ]
 
 MIDDLEWARE = [
@@ -133,3 +134,5 @@ LOGIN_REDIRECT_URL = '/'
 MEDIA_ROOT = Path(BASE_DIR, 'media')
 
 MEDIA_URL = '/media/'
+
+X_FRAME_OPTIONS = ''

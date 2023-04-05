@@ -9,8 +9,10 @@ from seldon.settings import TIME_ZONE
 
 
 def news_list(request):
-    news_list = News.objects.all().order_by('-date')
-    return render(request, 'news/news_list.html', {'news_list': news_list})
+    news = News.objects.all().order_by('-date')
+    if not news:
+        news = []
+    return render(request, 'news/news_list.html', {'news_list': news})
 
 
 @login_required(login_url='login')

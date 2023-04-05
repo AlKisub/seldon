@@ -12,6 +12,8 @@ from .forms import PostForm, PointForm
 
 def post_list(request):
     posts = Post.objects.filter(edit_date__lte=timezone.now()).order_by('created_date')
+    if not posts:
+        posts = []
     return render(request, 'blog/post_list.html', {'posts': posts})
 
 
