@@ -70,7 +70,7 @@ def point_create(request, post):
                     point_id=point.id,
                 )
                 initial_path = photo.image.path
-                photo.image.name = f'{point.id}/{photo.image.name}'
+                photo.image.name = f'points/{point.id}/{photo.image.name}'
                 new_path = Path(MEDIA_ROOT, photo.image.name)
                 new_path.parent.mkdir(exist_ok=True, parents=True)
                 Path(initial_path).rename(new_path)
@@ -101,7 +101,7 @@ def point_edit(request, post, point):
                     point_id=point,
                 )
                 initial_path = photo.image.path
-                photo.image.name = f'{point}/{photo.image.name}'
+                photo.image.name = f'points/{point}/{photo.image.name}'
                 new_path = Path(MEDIA_ROOT, photo.image.name)
                 new_path.parent.mkdir(exist_ok=True, parents=True)
                 Path(initial_path).rename(new_path)
