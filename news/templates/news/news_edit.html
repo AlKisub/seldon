@@ -3,9 +3,21 @@
 {% block content %}
   <h1>Редактирование новости</h1>
   <form method="POST" class="post-form">{% csrf_token %}
-    {{ form.subject }}
-    {{ form.text }}
-    {{ form.date }}
+    <p>
+      {{ form.subject.errors }}
+      <label>{{ form.subject.label_tag }}</label>
+      {{ form.subject }}
+    </p>
+    <p>
+      {{ form.text.errors }}
+      <label>{{ form.text.label_tag }}</label>
+      {{ form.text }}
+    </p>
+    <p>
+      {{ form.date.errors }}
+      <label>{{ form.date.label_tag }}</label>
+      {{ form.date }}
+    </p>
     <button type="submit" class="btn btn-primary">Сохранить</button>
   </form>
 {% endblock %}
