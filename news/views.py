@@ -1,9 +1,11 @@
+from pytz import timezone
 
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 
 from .forms import NewsForm
 from .models import News
+from seldon.settings import TIME_ZONE
 
 
 def news_list(request):
@@ -21,7 +23,7 @@ def news_edit(request, news):
             edit_post.save()
             return redirect('news_list')
     else:
-        edit_news.date = edit_news.date.isoformat()[:-6]
+        edit_news.date = edit_news.date.astimezone(timezone(TIME_ZONE)).isoformat()[:-6]
         form = NewsForm(instance=edit_news)
     return render(request, 'news/news_edit.html', {'form': form})
 
