@@ -3,7 +3,9 @@
 {% block content %}
   <h1>Редактирование новости</h1>
   <form method="POST" class="post-form">{% csrf_token %}
-    {{ form.as_p }}
+    {{ form.subject }}
+    {{ form.text }}
+    {{ form.date }}
     <button type="submit" class="btn btn-primary">Сохранить</button>
   </form>
 {% endblock %}
