@@ -135,4 +135,4 @@ MEDIA_ROOT = Path(BASE_DIR, 'media')
 
 MEDIA_URL = '/media/'
 
-X_FRAME_OPTIONS = ''
+X_FRAME_OPTIONS = 'SAMEORIGIN'
