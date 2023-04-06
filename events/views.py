@@ -1,3 +1,4 @@
+import datetime
 import json
 
 from pytz import timezone
@@ -47,16 +48,13 @@ def events_create(request):
 
 
 def calendar(request):
-    events = Events.objects.all()
-    r = {}
+    events = Events.objects.all().order_by('-date')
+    events_out = {}
     for event in events:
-        print(event)
-        print(event.date.year)
-        print(event.date.month)
-        print(event.date.day)
-        r[event.date.day] = event.subject
-    # j = json.dumps({"12": "sdf", "13": "sdf"})
-    print(r)
-    j = json.dumps(r)
-    print(j.replace('"', '\\"'))
-    return render(request, 'events/calendar.html', {'datata': j})
+        event.date = event.date + datetime.timedelta(hours=3)
+        if event.date.year not in events_out.keys():
+            events_out[event.date.year] = {}
+        if event.date.month not in events_out[event.date.year].keys():
+            events_out[event.date.year][event.date.month] = {}
+        events_out[event.date.year][event.date.month][event.date.day] = event.subject
+    return render(request, 'events/calendar.html', {'events': json.dumps(events_out)})

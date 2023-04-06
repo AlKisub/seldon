@@ -52,14 +52,16 @@ let cal = {
             cal.hYear.appendChild(opt);
         }
         cal.hYear.onchange = cal.list;
-        // СТАРТ - ВЫВОДА КАЛЕНДАРЯ
-        cal.list();
-
-                                // Добавить событие
-                                    cal.data = document.getElementById('dataid').textContent
-                                    console.log(cal.data)
-                                    localStorage.setItem('cal-3-2023', cal.data)
-                                    cal.list();
+        // Добавляем события с сервера
+        events = JSON.parse(document.getElementById('events').textContent)
+        for(year in events){
+            for(mounth in events[year]){
+                cal.data = JSON.stringify(events[year][mounth])
+                new_mounth = Number(mounth) - 1
+                localStorage.setItem('cal-' + new_mounth + '-' + year, cal.data)
+                cal.list();
+            }
+        }
     },
 
 
