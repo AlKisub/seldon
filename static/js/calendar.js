@@ -135,9 +135,10 @@ let cal = {
                 cRow.classList.add("day");
             }
         }
-        // УДАЛИТЬ ЛЮБУЮ ПРЕДЫДУЩУЮ ДОБАВЛЕНИЕ/РЕДАКТИРОВАНИЕ СОБЫТИЙ DOCKET
-        cal.close();
 
+    },
+    show : (el) => {
+        console.log(el)
     },
 };
 window.addEventListener("load", cal.init);
