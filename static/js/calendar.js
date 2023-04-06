@@ -11,24 +11,11 @@ let cal = {
     // ОБЩИЕ HTML-ЭЛЕМЕНТЫ
     hMth: null,
     hYear: null, // выбор месяца/года
-    hForm: null,
-    hfHead: null,
-    hfDate: null,
-    hfTxt: null,
-    hfDel: null, // форма события
     // КАЛЕНДАРЬ НАЧАЛА
     init : () => {
         // ПОЛУЧИТЬ + УСТАНОВИТЬ ОБЩИЕ ЭЛЕМЕНТЫ HTML
         cal.hMth = document.querySelector("#cal-mth");
         cal.hYear = document.querySelector("#cal-yr");
-        cal.hForm = document.querySelector("#cal-event");
-        cal.hfHead = document.querySelector("#evt-head");
-        cal.hfDate = document.querySelector("#evt-date");
-        cal.hfTxt = document.querySelector("#evt-details");
-        cal.hfDel = document.querySelector("#evt-del");
-        document.querySelector("#evt-close").onclick = cal.close;
-        cal.hfDel.onclick = cal.del;
-        cal.hForm.onsubmit = cal.save;
         // ДАТА СЕЙЧАС
         let now = new Date(),
         nowMth = now.getMonth(),
@@ -152,42 +139,6 @@ let cal = {
         cal.close();
 
     },
-
-
-
-    // ПОКАЗАТЬ РЕДАКТИРОВАНИЕ СОБЫТИЙ ДЛЯ ВЫБРАННОГО ДНЯ
-    // show : (el) => {
-    //     // ПОЛУЧИТЬ СУЩЕСТВУЮЩИЕ ДАННЫЕ
-    //     cal.sDay = el.getElementsByClassName("dd")[0].innerHTML;
-    //     let isEdit = cal.data[cal.sDay] !== undefined ;
-    //     // ОБНОВИТЬ ФОРМУ МЕРОПРИЯТИЯ
-    //     cal.hfTxt.value = isEdit ? cal.data[cal.sDay] : "" ;
-    //     cal.hfHead.innerHTML = isEdit ? "EDIT EVENT" : "ADD EVENT" ;
-    //     cal.hfDate.innerHTML = `${cal.sDay} ${cal.mName[cal.sMth]} ${cal.sYear}`;
-    //     if (isEdit) { cal.hfDel.classList.remove("ninja"); }
-    //     else { cal.hfDel.classList.add("ninja"); }
-    //     cal.hForm.classList.remove("ninja");
-    // },
-
-
-
-    // ЗАКРЫТЬ СОБЫТИЕ
-    close : () => {
-        cal.hForm.classList.add("ninja");
-    },
-    // СОХРАНИТЬ СОБЫТИЕ
-    save : () => {
-        cal.data[cal.sDay] = cal.hfTxt.value;
-        localStorage.setItem(`cal-${cal.sMth}-${cal.sYear}`, JSON.stringify(cal.data));
-        cal.list();
-        return false;
-    },
-    // УДАЛИТЬ СОБЫТИЕ НА ВЫБРАННУЮ ДАТУ
-    del : () => { if (confirm("Delete event?")) {
-        delete cal.data[cal.sDay];
-        localStorage.setItem(`cal-${cal.sMth}-${cal.sYear}`, JSON.stringify(cal.data));
-        cal.list();
-    }}
 };
 window.addEventListener("load", cal.init);
 
