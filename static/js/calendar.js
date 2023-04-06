@@ -124,7 +124,9 @@ let cal = {
                 if (nowDay==squares[i]) { cCell.classList.add("today"); }
                 cCell.innerHTML = `<div class="dd">${squares[i]}</div>`;
                 if (cal.data[squares[i]]) {
-                    cCell.innerHTML += "<div class='evt'>" + cal.data[squares[i]] + "</div>";
+                    for(event_in_day_num in cal.data[squares[i]]){
+                        cCell.innerHTML += "<div class='evt'>" + cal.data[squares[i]][event_in_day_num] + "</div>";
+                    }
                 }
                 cCell.onclick = () => { cal.show(cCell); };
             }

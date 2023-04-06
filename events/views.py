@@ -56,5 +56,8 @@ def calendar(request):
             events_out[event.date.year] = {}
         if event.date.month not in events_out[event.date.year].keys():
             events_out[event.date.year][event.date.month] = {}
-        events_out[event.date.year][event.date.month][event.date.day] = event.subject
+        if event.date.day in events_out[event.date.year][event.date.month].keys():
+            events_out[event.date.year][event.date.month][event.date.day] += [event.subject]
+        else:
+            events_out[event.date.year][event.date.month][event.date.day] = [event.subject]
     return render(request, 'events/calendar.html', {'events': json.dumps(events_out)})
